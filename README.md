@@ -1,107 +1,130 @@
-# MazdoorConnect — React + Vite + Tailwind
+# 👷 Mazdoor Connect
 
-A platform connecting rural workers directly with urban customers.
-No middlemen. Fair wages. Transparent payments.
+A full-stack web platform that connects workers (mazdoors) directly with customers, eliminating middlemen and ensuring fair wages.
 
----
-
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── Navbar.jsx          ← sticky nav with React Router NavLink
-│   ├── WorkerCard.jsx      ← reusable worker card (used on /workers)
-│   ├── ContactModal.jsx    ← reusable contact popup
-│   └── Toast.jsx           ← global toast notification
-│
-├── pages/
-│   ├── Home.jsx            ← landing page with hero, categories, how it works
-│   ├── Workers.jsx         ← searchable, filterable worker listings
-│   ├── WorkerProfile.jsx   ← individual worker page (/worker/:id)
-│   ├── Register.jsx        ← worker/customer registration with OTP step
-│   ├── Dashboard.jsx       ← worker dashboard with jobs & earnings
-│   └── About.jsx           ← about page
-│
-├── data/
-│   └── workers.js          ← all worker data (replace with API calls later)
-│
-├── context/
-│   └── ToastContext.jsx    ← global toast state using React Context
-│
-├── App.jsx                 ← routes setup with React Router
-├── main.jsx                ← entry point
-└── index.css               ← Tailwind directives + global styles
-```
+🔗 **Live Demo:** https://mazdoor-connect-mh7n.vercel.app/
 
 ---
 
-## How to Run
+## 🚀 Overview
 
-**Step 1 — Install dependencies**
+Mazdoor Connect is designed to solve a real-world problem — lack of direct access between workers and customers.  
+The platform enables workers to showcase their skills and availability, while customers can easily find and connect with them.
+
+---
+
+## ✨ Features
+
+### 👤 User Features
+- 🔐 User Authentication (Login / Register)
+- 👷 Worker & Customer roles
+- 📝 Profile creation and management
+
+### 🔍 Core Functionality
+- 🔎 Search workers by category (plumber, electrician, etc.)
+- 📍 Location-based filtering
+- 💰 Set and view service rates
+- 🟢 Availability status toggle
+
+### 📊 Dashboard
+- 📋 View all workers
+- 📌 Detailed worker profiles
+- ⚡ Dynamic data rendering
+
+---
+
+## 🛠️ Tech Stack
+
+### 🌐 Frontend
+- React (Vite)
+- Tailwind CSS
+- React Router
+
+### ⚙️ Backend
+- Node.js
+- Express.js
+
+### 🗄️ Database
+- MongoDB (Atlas)
+
+### 🔐 Authentication
+- JWT (JSON Web Tokens)
+- bcrypt (password hashing)
+
+### 🚀 Deployment
+- Vercel (Frontend)
+- Render / Railway (Backend)
+
+---
+
+## 🧠 Architecture
+
+
+Frontend (React - Vercel)
+↓
+Backend (Node.js API)
+↓
+MongoDB Database
+
+
+---
+
+## 📂 Project Structure
+
+
+mazdoor-connect/
+│
+├── frontend/
+│ ├── src/
+│ ├── components/
+│ ├── pages/
+│ └── App.jsx
+│
+├── backend/
+│ ├── models/
+│ ├── routes/
+│ ├── controllers/
+│ └── server.js
+
+
+---
+
+## ⚙️ Setup Instructions
+
+### 🔧 Frontend
+
 ```bash
+git clone https://github.com/Priyesh-31/mazdoor-connect.git
+cd mazdoor-connect
 npm install
-```
-
-**Step 2 — Start dev server**
-```bash
 npm run dev
-```
+🔧 Backend
+cd backend
+npm install
+npm run dev
+🔐 Environment Variables
 
-Open http://localhost:5173
+Create .env in backend:
 
-**Step 3 — Build for production**
-```bash
-npm run build
-```
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+📸 Screenshots
 
----
+(Add screenshots here)
 
-## Key Concepts Used
+🚀 Future Improvements
+💬 Real-time chat system
+⭐ Worker rating & reviews
+📍 Map integration (nearby workers)
+💳 Online payments
+📱 PWA (installable app)
+👨‍💻 Author
 
-| Concept | Where | What it does |
-|---|---|---|
-| `useState` | Register, Dashboard, Workers | Controls form values, filters, toggles |
-| `useEffect` | Home (counter animation) | Runs code when component mounts |
-| `useMemo` | Workers | Filters workers without re-running on every render |
-| `useParams` | WorkerProfile | Reads `:id` from URL `/worker/3` |
-| `useSearchParams` | Workers | Reads/writes `?category=Electrician` in URL |
-| `useNavigate` | Register | Redirect to dashboard after OTP |
-| `NavLink` | Navbar | Auto-highlights active page link |
-| `createContext` | ToastContext | Shares toast function across all components |
-| `useContext` | Toast, ContactModal | Reads from ToastContext |
+Priyesh Raj
+B.Tech CSE (Design) | RGIPT
 
----
+🌟 Why This Project?
 
-## Next Steps (Backend Integration)
+This project addresses a real-world problem in the labor market by enabling direct communication between workers and customers, promoting transparency and fair wages.
 
-When you're ready to connect a real backend:
-
-1. Replace `src/data/workers.js` static array with:
-```js
-const [workers, setWorkers] = useState([])
-useEffect(() => {
-  fetch('/api/workers').then(r => r.json()).then(setWorkers)
-}, [])
-```
-
-2. Connect Register form to your API:
-```js
-await fetch('/api/register', {
-  method: 'POST',
-  body: JSON.stringify(formData)
-})
-```
-
-3. Add Twilio for real OTP
-4. Add Firebase Auth or JWT for login sessions
-5. Deploy frontend on Vercel (free), backend on Railway or Render
-
----
-
-## Tech Stack
-
-- **React 18** — UI components
-- **Vite 5** — fast dev server & build tool
-- **Tailwind CSS 3** — utility-first styling
-- **React Router 6** — real URL routing
+⭐ If you like this project, consider giving it a star!
