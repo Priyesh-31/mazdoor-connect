@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  name      String
+  role      Role     @default(WORKER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workerProfile   WorkerProfile?
+  jobsAsCustomer  Job[]    @relation("CustomerJobs")
+  reviewsReceived Review[] @relation("WorkerReviews")
+  reviewsGiven    Review[] @relation("CustomerReviews")
+}
+
+enum Role {
+  WORKER
+  CUSTOMER
+}
+
+model OTP {
+  id        String   @id @default(cuid())
+  phone     String
+  code      String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([phone])
+}
+
+model WorkerProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category    String
+  location    String
+  bio         String?
+  dailyRate   Int
+  experience  Int      @default(0)
+  available   Boolean  @default(true)
+  photoUrl    String?
+  ratingAvg   Float    @default(0)
+  reviewCount Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  jobs Job[] @relation("WorkerJobs")
+}
+
+model Job {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  status      JobStatus @default(PENDING)
+  customerId  String
+  customer    User          @relation("CustomerJobs", fields: [customerId], references: [id])
+  workerId    String
+  worker      WorkerProfile @relation("WorkerJobs", fields: [workerId], references: [id])
+  agreedRate  Int?
+  scheduledAt DateTime?
+  completedAt DateTime?
+  review      Review?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum JobStatus {
+  PENDING
+  ACCEPTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  rating     Int
+  comment    String?
+  jobId      String   @unique
+  job        Job      @relation(fields: [jobId], references: [id])
+  workerId   String
+  worker     User     @relation("WorkerReviews", fields: [workerId], references: [id])
+  customerId String
+  customer   User     @relation("CustomerReviews", fields: [customerId], references: [id])
+  createdAt  DateTime @default(now())
+}
