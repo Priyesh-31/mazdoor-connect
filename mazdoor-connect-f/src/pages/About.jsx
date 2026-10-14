@@ -97,8 +97,8 @@ export default function About() {
       <div className="card">
         <h2 className="font-sora font-bold text-base text-gray-900 mb-3">📞 {t('contact')}</h2>
         <div className="flex flex-col gap-2 mb-5">
-          <p className="text-sm text-gray-700">📧 <strong>{t('aboutContactEmail')}</strong></p>
-          <p className="text-sm text-gray-700">📱 <strong>{t('aboutContactPhone')}</strong></p>
+          <a href={`mailto:${t('aboutContactEmail')}`} className="text-sm text-gray-700 hover:text-orange no-underline">📧 <strong>{t('aboutContactEmail')}</strong></a>
+          <a href={`tel:+91${t('aboutContactPhone')}`} className="text-sm text-gray-700 hover:text-orange no-underline">📱 <strong>+91 {t('aboutContactPhone')}</strong></a>
         </div>
         <div className="flex gap-3 flex-wrap">
           <Link to="/register" className="btn-primary">{t('joinFree')}</Link>
